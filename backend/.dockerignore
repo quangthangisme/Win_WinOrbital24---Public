@@ -1,0 +1,6 @@
+.idea
+target
+!target/*.jar
+.gitignore
+README.md
+HELP.md 

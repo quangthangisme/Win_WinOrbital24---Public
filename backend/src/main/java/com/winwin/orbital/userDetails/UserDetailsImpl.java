@@ -1,7 +1,7 @@
-package com.winwin.orbital.userDetails;
+package com.winwin.orbital.userdetails;
 
-import  com.winwin.orbital.user.User;
-import lombok.Getter;
+import com.winwin.orbital.manager.Manager;
+import com.winwin.orbital.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

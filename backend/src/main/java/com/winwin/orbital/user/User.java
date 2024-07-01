@@ -3,7 +3,8 @@ package com.winwin.orbital.user;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.winwin.orbital.manager.Manager;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @ToString
@@ -26,14 +27,17 @@ public class User {
 
     @Email
     @Column(nullable = false, unique = true)
+    @EqualsAndHashCode.Exclude
     private String email;
 
     @NotBlank
     @Column(nullable = false)
+    @EqualsAndHashCode.Exclude
     private String password;
 
     @NotBlank
     @Column(nullable = false)
+    @EqualsAndHashCode.Exclude
     private String role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)

@@ -21,7 +21,7 @@ public class UserService {
     }
 
     @Transactional
-    public User registerNewUserAccount(UserDto userDto)
+    public com.winwin.orbital.user.User registerNewUserAccount(UserDto userDto)
             throws UserAlreadyExistException, RegistrationException {
 
         if (emailExists(userDto.getEmail())) {
@@ -35,7 +35,7 @@ public class UserService {
         }
 
         try {
-            User user = new User();
+            com.winwin.orbital.user.User user = new User();
             user.setUsername(userDto.getUsername());
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             user.setEmail(userDto.getEmail());

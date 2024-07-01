@@ -18,11 +18,7 @@ public class PlayerController {
 
     @GetMapping("/{playerId}")
     public ResponseEntity<?> getPlayer(@PathVariable long playerId) {
-        try {
-            PlayerDto playerDto = playerService.getPlayerById(playerId);
-            return ResponseEntity.ok(playerDto);
-        } catch (PlayerNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }
+        PlayerDto playerDto = playerService.getPlayerById(playerId);
+        return ResponseEntity.ok(playerDto);
     }
 }

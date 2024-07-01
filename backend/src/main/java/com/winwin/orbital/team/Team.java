@@ -1,6 +1,7 @@
 package com.winwin.orbital.team;
 
 import com.winwin.orbital.league.League;
+import com.winwin.orbital.lineup.Lineup;
 import com.winwin.orbital.manager.Manager;
 import com.winwin.orbital.player.Player;
 import jakarta.persistence.*;
@@ -26,24 +27,26 @@ public class Team {
     @NotBlank
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     private Manager manager;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_id")
     private League league;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "team_player",
             joinColumns = @JoinColumn(name = "team_id"),
             inverseJoinColumns = @JoinColumn(name = "player_id")
     )
     @EqualsAndHashCode.Exclude
-    private Set<Player> players = new HashSet<>();
+    private Set<Player> currentPlayers;
 
-    private int points = 0;
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    private Set<Lineup> lineupHistory = new HashSet<>();
 
     public Team(Manager manager, League league) {
         this.name = manager.getUser().getUsername() + " F.C.";

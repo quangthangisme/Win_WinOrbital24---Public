@@ -1,11 +1,15 @@
 package com.winwin.orbital.league;
 
+import com.winwin.orbital.manager.Manager;
+import com.winwin.orbital.scoringrule.ScoringRule;
 import com.winwin.orbital.team.Team;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -29,9 +33,37 @@ public class League {
     @Column(unique = true)
     private String code;
 
-    @OneToMany(mappedBy = "league", cascade = CascadeType.ALL, orphanRemoval = true)
+    @NotBlank
+    @EqualsAndHashCode.Exclude
+    private String status; // created, waiting for draft, drafting, in season, or post-season
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    @EqualsAndHashCode.Exclude
+    private Manager admin;
+
+    @EqualsAndHashCode.Exclude
+    private LocalDateTime draftStartTime;
+
+    @OneToMany(mappedBy = "league", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     private Set<Team> teams = new HashSet<>();
+
+    @OneToOne(mappedBy = "league", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    private ScoringRule scoringRule;
+
+    @ElementCollection
+    @MapKeyColumn(name = "powerup")
+    @Column(name = "count")
+    @EqualsAndHashCode.Exclude
+    private Map<String, Integer> powerUps;
+
+    @EqualsAndHashCode.Exclude
+    private long maxNumberOfPlayersFromAClub;
+
+    @EqualsAndHashCode.Exclude
+    private long draftTurnDurationMilliseconds;
 
     public League(String name, String code) {
         this.name = name;

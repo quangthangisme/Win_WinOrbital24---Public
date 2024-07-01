@@ -1,0 +1,20 @@
+.accordion-button:not(.collapsed) {
+    background-color: #ffffff;
+    color:black;
+}
+
+.accordion,
+.accordion-item,
+.accordion-header,
+.accordion-button,
+.accordion-body,
+.accordion-collapse{
+    --bs-accordion-border-width: 0;
+    border-width: 0;
+}
+
+.accordion-button:focus,
+.accordion-button:active {
+    box-shadow: none;
+    outline: none;
+}

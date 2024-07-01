@@ -1,0 +1,10 @@
+.player-card {
+    position: relative;
+    min-width: 150px;
+}
+
+.player-card .badge {
+    position: absolute;
+
+    right: 8px;
+}
